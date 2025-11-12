@@ -1,0 +1,57 @@
+.canvas {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.canvasInner {
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px #dcdcdc, 0 4px 12px rgba(0, 0, 0, 0.08);
+  position: relative;
+  width: 800px;
+  overflow: visible;
+  transition: box-shadow 0.2s;
+
+  * {
+    color: #000;
+  }
+}
+
+.guideVertical {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(0, 150, 255, 0.7);
+  pointer-events: none;
+}
+
+.guideHorizontal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0, 150, 255, 0.7);
+  pointer-events: none;
+}
+
+.resizeOverlay {
+  position: absolute;
+  border: 1px dashed #0096ff;
+  background: rgba(0, 150, 255, 0.1);
+  pointer-events: none;
+}
+
+.overlayLabel {
+  position: absolute;
+  bottom: -20px;
+  right: 0;
+  background: var(--color-bg-panel);
+  color: var(--white);
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+}

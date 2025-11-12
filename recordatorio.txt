@@ -1,0 +1,7 @@
+import { minify } from 'html-minifier';
+
+const minified = minify(inlinedHtml, {
+  collapseWhitespace: true,
+  removeComments: true,
+  minifyCSS: true
+});

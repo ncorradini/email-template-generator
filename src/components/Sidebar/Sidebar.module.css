@@ -1,0 +1,58 @@
+.sidebar {
+  width: 240px;
+  padding: 1.5rem;
+  background-color: #1e1f22;
+  border-right: 1px solid #2b2c30;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
+  font-family: Inter, sans-serif;
+}
+
+.title {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: #e5e5e8;
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sectionTitle {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #888a91;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.4px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #26272a;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  color: #f3f3f4;
+  cursor: grab;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  margin-bottom: 0.6rem;
+}
+
+.item:hover {
+  background-color: #323338;
+  border-color: var(--color-primary);
+}
+
+.icon {
+  font-size: 1.3rem;
+  color: #9fa1a9;
+}
+
+.dragging {
+  opacity: 0.4;
+}
