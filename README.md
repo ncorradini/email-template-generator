@@ -1,73 +1,68 @@
-# React + TypeScript + Vite
+# Generador de Plantillas de Email
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Proyecto **React + TypeScript + Vite** para construir **plantillas de email editables** con bloques drag & drop.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Características
 
-## React Compiler
+- **Arrastrar y soltar**: Usando [`@dnd-kit/core`](https://docs.dndkit.com/).  
+- **Contenido editable**: Edición inline con [`react-contenteditable`](https://github.com/lovasoa/react-contenteditable).  
+- **Bloques dinámicos**: Añade bloques configurables y editables.  
+- **Estilos personalizables**: Cambia colores, bordes, tamaños y más por bloque.  
+- **Iconos**: Integra [`react-icons`](https://react-icons.github.io/react-icons/) para la UI.  
+- **Vite-powered**: Recarga rápida (HMR) y build optimizado con TypeScript.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Cómo empezar
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Instalar dependencias:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Iniciar el servidor de desarrollo:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Generar build de producción:
+
+```bash
+npm run build
+```
+
+## Estructura del proyecto
+
+- `src/components/` – Componentes de UI.  
+- `src/types/` – Tipos compartidos de TypeScript.  
+- `src/App.tsx` – Archivo principal de la aplicación.
+- `src/index.tsx` – Punto de entrada de la app.
+
+## Tipos de bloques
+
+El editor soporta múltiples tipos de bloques, incluyendo texto, imágenes, contenedores y grids.
+
+## Cómo editar bloques
+
+1. Arrastra un bloque desde la barra lateral al canvas.  
+2. Selecciona el bloque para editar sus **propiedades** en el inspector:  
+   - Contenido de texto  
+   - URL y tamaño de imagen  
+   - Filas y columnas (para bloques tipo grid)  
+   - Estilos inline CSS  
+
+## Dependencias principales
+
+- `@dnd-kit/core` – Arrastrar y soltar 
+- `react-contenteditable` – Edición inline  
+- `react-icons` – Iconos para UI
+
+## Notas
+
+- Los bloques se implementan como grillas de celdas `contentEditable`, con bordes opcionales.  
+- El template está optimizado para HTML compatible con email, por lo que se utiliza estilos inline.  
+- El proyecto es **100% TypeScript** y fácil de ampliar con nuevos tipos de bloque.
