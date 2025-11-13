@@ -141,6 +141,8 @@ export const BlockItem = ({ block, onChange }: Props) => {
                       borderStyle: "solid",
                       borderColor: block.styles?.borderColor || "black",
                       fontSize: block.styles?.fontSize || "14px",
+                      fontWeight: block.styles?.fontWeight || "400", // 🆕 Grosor del texto
+                      color: block.styles?.color || "#000000", // 🆕 Color del texto
                       height: cellHeight,
                     }}
                   >
@@ -163,6 +165,8 @@ export const BlockItem = ({ block, onChange }: Props) => {
                         height: "100%",
                         padding: "4px",
                         boxSizing: "border-box",
+                        fontWeight: block.styles?.fontWeight || "400",
+                        color: block.styles?.color || "#000000",
                       }}
                     />
                   </td>

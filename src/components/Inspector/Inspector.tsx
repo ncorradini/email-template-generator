@@ -50,6 +50,23 @@ export const Inspector = ({ selectedBlock, onChange }: Props) => {
               }
             />
           </div>
+
+          <div className={styles.section}>
+            <label className={styles.label}>Grosor del texto</label>
+            <select
+              value={selectedBlock.styles?.fontWeight || "400"}
+              onChange={(e) =>
+                onChange(selectedBlock.id, "fontWeight", e.target.value)
+              }
+            >
+              <option value="300">Light</option>
+              <option value="400">Normal</option>
+              <option value="500">Medio</option>
+              <option value="600">Semibold</option>
+              <option value="700">Bold</option>
+              <option value="800">Extra Bold</option>
+            </select>
+          </div>
         </>
       )}
 
@@ -135,6 +152,17 @@ export const Inspector = ({ selectedBlock, onChange }: Props) => {
           </div>
 
           <div className={styles.section}>
+            <label className={styles.label}>Color del texto</label>
+            <input
+              type="color"
+              value={selectedBlock.styles?.color || "#000000"}
+              onChange={(e) =>
+                onChange(selectedBlock.id, "color", e.target.value)
+              }
+            />
+          </div>
+
+          <div className={styles.section}>
             <label className={styles.label}>Tamaño de fuente</label>
             <input
               type="number"
@@ -145,6 +173,23 @@ export const Inspector = ({ selectedBlock, onChange }: Props) => {
                 onChange(selectedBlock.id, "fontSize", e.target.value + "px")
               }
             />
+          </div>
+
+          <div className={styles.section}>
+            <label className={styles.label}>Grosor del texto</label>
+            <select
+              value={selectedBlock.styles?.fontWeight || "400"}
+              onChange={(e) =>
+                onChange(selectedBlock.id, "fontWeight", e.target.value)
+              }
+            >
+              <option value="300">Fino</option>
+              <option value="400">Normal</option>
+              <option value="500">Medio</option>
+              <option value="600">Seminegrita</option>
+              <option value="700">Negrita</option>
+              <option value="800">Extra negrita</option>
+            </select>
           </div>
 
           <div className={styles.section}>
