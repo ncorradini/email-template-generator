@@ -5,10 +5,11 @@ import { DndContext, DragOverlay } from "@dnd-kit/core";
 import { Sidebar } from "./components/Sidebar/Sidebar";
 import { Canvas, type CanvasRef } from "./components/Canvas/Canvas";
 import { Inspector } from "./components/Inspector/Inspector";
+import { CanvasSizeControls } from "./components/CanvasSizeControls/CanvasSizeControls";
 import { useBlocksManager } from "./hooks/useBlocksManager";
 import { useDragHandlers } from "./hooks/useDragHandlers";
 import { useExportHTML } from "./hooks/useExportHtml";
-import { CanvasSizeControls } from "./components/CanvasSizeControls/CanvasSizeControls";
+import { useTemplate } from "./hooks/useTemplate";
 
 const App = () => {
   const canvasRef = useRef<CanvasRef>(null);
@@ -17,6 +18,7 @@ const App = () => {
 
   const {
     blocks,
+    setBlocks,
     addBlock,
     updateBlockContent,
     deleteBlock,
@@ -34,6 +36,7 @@ const App = () => {
   );
 
   const { exportHTML } = useExportHTML(canvasRef);
+  const { exportTemplate, handleImportClick } = useTemplate(blocks, setBlocks);
 
   const handleSelectBlock = (block: Block | null) => setSelectedBlock(block);
   const handleStyleChange = (id: string, field: string, value: string) =>
@@ -53,9 +56,21 @@ const App = () => {
         <div className={styles.main}>
           <header className={styles.header}>
             <CanvasSizeControls canvasRef={canvasRef} />
-            <button onClick={exportHTML} className={styles.exportBtn}>
-              Exportar HTML
-            </button>
+
+            <div className={styles.headerButtons}>
+              <button onClick={exportTemplate} className={styles.secondaryBtn}>
+                Guardar plantilla
+              </button>
+              <button
+                onClick={handleImportClick}
+                className={styles.secondaryBtn}
+              >
+                Cargar plantilla
+              </button>
+              <button onClick={exportHTML} className={styles.exportBtn}>
+                Exportar HTML
+              </button>
+            </div>
           </header>
 
           <div className={styles.canvasContainer}>
