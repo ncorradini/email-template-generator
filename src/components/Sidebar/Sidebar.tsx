@@ -7,7 +7,7 @@ import {
   TbRectangle,
   TbLink,
   TbSeparator,
-  TbLayoutGridAdd,
+  TbTable,
 } from "react-icons/tb";
 import styles from "./Sidebar.module.css";
 
@@ -41,17 +41,15 @@ export const Sidebar = () => {
     <aside className={styles.sidebar}>
       <h3 className={styles.title}>Email Template Generator</h3>
 
-      <div className={styles.sectionTitle}>Elementos</div>
+      <h5 className={styles.sectionTitle}>Elementos</h5>
       <SidebarItem id="title" label="Título" Icon={TbTypography} />
       <SidebarItem id="paragraph" label="Párrafo" Icon={TbTextCaption} />
       <SidebarItem id="image" label="Imagen" Icon={TbPhoto} />
       <SidebarItem id="button" label="Botón" Icon={TbBrandMailgun} />
       <SidebarItem id="divider" label="Separador" Icon={TbSeparator} />
       <SidebarItem id="link" label="Enlace" Icon={TbLink} />
-
-      <div className={styles.sectionTitle}>Layout</div>
+      <SidebarItem id="table" label="Tabla" Icon={TbTable} />
       <SidebarItem id="container" label="Contenedor" Icon={TbRectangle} />
-      <SidebarItem id="grid" label="Columna / Grid" Icon={TbLayoutGridAdd} />
     </aside>
   );
 };

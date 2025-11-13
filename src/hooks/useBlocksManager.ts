@@ -26,6 +26,7 @@ export const useBlocksManager = () => {
         b.id === id
           ? {
               ...b,
+              settings: { ...b.settings, [field]: value },
               styles: { ...b.styles, [field]: value },
               ...(field === "src" ? { src: value } : {}),
             }

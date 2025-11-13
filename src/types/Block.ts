@@ -6,7 +6,7 @@ export type BlockType =
   | "divider"
   | "link"
   | "container"
-  | "grid";
+  | "table";
 
 export interface Block {
   id: string;
@@ -19,6 +19,10 @@ export interface Block {
   width?: number;
   height?: number;
   children?: Block[];
-  settings?: Record<string, unknown>;
+  settings?: {
+    rows?: number;
+    columns?: number;
+    tableData?: string[][];
+  };
   styles?: Record<string, string>;
 }

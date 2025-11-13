@@ -94,34 +94,85 @@ export const BlockItem = ({ block, onChange }: Props) => {
         />
       );
 
-    case "grid":
+    case "table": {
+      const rows = block.settings?.rows || 3;
+      const columns = block.settings?.columns || 3;
+      const tableData =
+        block.settings?.tableData ||
+        Array.from({ length: rows }, () =>
+          Array.from({ length: columns }, () => "")
+        );
+
+      const handleCellChange = (
+        rowIndex: number,
+        colIndex: number,
+        value: string
+      ) => {
+        const newData = tableData.map((row, r) =>
+          row.map((cell, c) =>
+            r === rowIndex && c === colIndex ? value : cell
+          )
+        );
+
+        block.settings = { ...block.settings, tableData: newData };
+        onChange(block.id, JSON.stringify(newData));
+      };
+
+      const cellHeight =
+        block.height && rows > 0 ? block.height / rows : "auto";
+
       return (
-        <div
+        <table
           style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "0.5rem",
-            width: "100%",
+            ...blockStyles.table,
+            width: block.width || "auto",
+            height: block.height || "auto",
           }}
         >
-          <ContentEditable
-            html="Columna 1"
-            onChange={(e) => onChange(block.id, e.target.value + "_col1")}
-            style={{
-              ...blockStyles.gridColumn,
-              ...blockStyles.editableBlock,
-            }}
-          />
-          <ContentEditable
-            html="Columna 2"
-            onChange={(e) => onChange(block.id, e.target.value + "_col2")}
-            style={{
-              ...blockStyles.gridColumn,
-              ...blockStyles.editableBlock,
-            }}
-          />
-        </div>
+          <tbody>
+            {tableData.map((row, r) => (
+              <tr key={r} style={{ height: cellHeight }}>
+                {row.map((cell, c) => (
+                  <td
+                    key={c}
+                    style={{
+                      ...blockStyles.tableCell,
+                      borderWidth: block.styles?.borderWidth || "1px",
+                      borderStyle: "solid",
+                      borderColor: block.styles?.borderColor || "black",
+                      fontSize: block.styles?.fontSize || "14px",
+                      height: cellHeight,
+                    }}
+                  >
+                    <ContentEditable
+                      html={cell}
+                      onChange={(e) => handleCellChange(r, c, e.target.value)}
+                      style={{
+                        ...blockStyles.editableBlock,
+                        display: "flex",
+                        justifyContent:
+                          block.styles?.justifyContent || "flex-start",
+                        alignItems: block.styles?.alignItems || "flex-start",
+                        textAlign:
+                          block.styles?.justifyContent === "center"
+                            ? "center"
+                            : block.styles?.justifyContent === "flex-end"
+                            ? "right"
+                            : "left",
+                        width: "100%",
+                        height: "100%",
+                        padding: "4px",
+                        boxSizing: "border-box",
+                      }}
+                    />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       );
+    }
 
     default:
       return null;

@@ -60,8 +60,44 @@ input[type="number"]:focus {
   background-color: #2b2c30;
 }
 
+select {
+  width: 100%;
+  background: #2d2e31;
+  border: 1px solid #555;
+  color: #f3f3f4;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  outline: none;
+  appearance: none;
+  box-sizing: border-box;
+  background-image: linear-gradient(45deg, transparent 50%, #aaa 50%),
+    linear-gradient(135deg, #aaa 50%, transparent 50%);
+  background-position: calc(100% - 15px) 50%, calc(100% - 9px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+select:focus {
+  border-color: var(--color-primary, #007bff);
+  background-color: #2b2c30;
+  background-image: linear-gradient(45deg, transparent 50%, #007bff 50%),
+    linear-gradient(135deg, #007bff 50%, transparent 50%);
+}
+
 .empty {
   font-size: 0.8rem;
   color: #aaa;
   margin-top: 1rem;
+}
+
+.borderControls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.borderControls input[type="number"] {
+  width: 60px;
 }

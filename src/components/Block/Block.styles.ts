@@ -57,11 +57,17 @@ export const blockStyles = {
     minHeight: "50px",
     minWidth: "50px",
   },
-  gridColumn: {
-    border: "1px solid #ccc",
-    borderRadius: "6px",
-    height: "50px",
-    backgroundColor: "#fafafa",
+  table: {
+    borderCollapse: "collapse" as const,
+    width: "100%",
+    fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+    tableLayout: "fixed" as const,
+  },
+  tableCell: {
+    width: "50px",
+    textAlign: "left" as const,
+    verticalAlign: "middle",
+    padding: "0",
   },
   editableBlock: {
     cursor: "text",
