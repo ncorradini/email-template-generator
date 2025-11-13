@@ -10,33 +10,12 @@ import {
 import { useDroppable } from "@dnd-kit/core";
 import { useCanvasGuides } from "../../hooks/useCanvasGuides";
 import { DraggableBlock } from "../DraggableBlock/DraggableBlock";
-
-function applyInlineStylesRecursively(element: HTMLElement) {
-  const computed = window.getComputedStyle(element);
-  const style: Record<string, string> = {};
-
-  for (const prop of computed) {
-    const value = computed.getPropertyValue(prop);
-    if (
-      value &&
-      !prop.startsWith("transition") &&
-      !prop.startsWith("animation") &&
-      !prop.startsWith("cursor") &&
-      !prop.startsWith("user-select")
-    ) {
-      style[prop] = value;
-    }
-  }
-
-  Object.assign(element.style, style);
-
-  Array.from(element.children).forEach((child) =>
-    applyInlineStylesRecursively(child as HTMLElement)
-  );
-}
+import type { Size } from "../../types/Size";
+import { applyInlineStyles } from "../../utils/applyInlineStyles";
 
 export interface CanvasRef {
   getCleanHTML: () => string;
+  setPageSize: (size: Size) => void;
 }
 
 interface CanvasProps {
@@ -73,6 +52,11 @@ export const Canvas = forwardRef<CanvasRef, CanvasProps>(
       h: number;
     } | null>(null);
 
+    const [pageSize, setPageSize] = useState<Size>({
+      width: 794,
+      height: 1123,
+    });
+
     const handleCanvasClick = (e: React.MouseEvent) => {
       if (e.target === canvasRef.current) {
         onSelectBlock?.(null);
@@ -82,9 +66,7 @@ export const Canvas = forwardRef<CanvasRef, CanvasProps>(
     useImperativeHandle(ref, () => ({
       getCleanHTML: () => {
         if (!canvasRef.current) return "";
-
         const clone = canvasRef.current.cloneNode(true) as HTMLElement;
-
         clone.querySelectorAll("[data-handle]").forEach((el) => el.remove());
         clone
           .querySelectorAll("[contenteditable]")
@@ -92,18 +74,15 @@ export const Canvas = forwardRef<CanvasRef, CanvasProps>(
         clone
           .querySelectorAll("[draggable]")
           .forEach((el) => el.removeAttribute("draggable"));
-
-        applyInlineStylesRecursively(clone);
-
+        applyInlineStyles(clone);
         return clone.innerHTML;
       },
+      setPageSize: (size) => setPageSize(size),
     }));
 
     useEffect(() => {
       const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.key === "Escape") {
-          onSelectBlock?.(null);
-        }
+        if (e.key === "Escape") onSelectBlock?.(null);
       };
       window.addEventListener("keydown", handleKeyDown);
       return () => window.removeEventListener("keydown", handleKeyDown);
@@ -116,7 +95,14 @@ export const Canvas = forwardRef<CanvasRef, CanvasProps>(
         data-droppable="canvas"
         onClick={handleCanvasClick}
       >
-        <div ref={canvasRef} className={styles.canvasInner}>
+        <div
+          ref={canvasRef}
+          className={styles.canvasInner}
+          style={{
+            width: `${pageSize.width}px`,
+            height: `${pageSize.height}px`,
+          }}
+        >
           {blocks.map((block) => (
             <div
               key={block.id}

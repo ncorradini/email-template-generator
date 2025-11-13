@@ -8,6 +8,7 @@ import { Inspector } from "./components/Inspector/Inspector";
 import { useBlocksManager } from "./hooks/useBlocksManager";
 import { useDragHandlers } from "./hooks/useDragHandlers";
 import { useExportHTML } from "./hooks/useExportHtml";
+import { CanvasSizeControls } from "./components/CanvasSizeControls/CanvasSizeControls";
 
 const App = () => {
   const canvasRef = useRef<CanvasRef>(null);
@@ -51,6 +52,7 @@ const App = () => {
         <Sidebar />
         <div className={styles.main}>
           <header className={styles.header}>
+            <CanvasSizeControls canvasRef={canvasRef} />
             <button onClick={exportHTML} className={styles.exportBtn}>
               Exportar HTML
             </button>
