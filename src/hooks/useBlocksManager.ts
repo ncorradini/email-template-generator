@@ -20,15 +20,19 @@ export const useBlocksManager = () => {
     );
   };
 
-  const updateBlockStyle = (id: string, field: string, value: string) => {
+  const updateBlockStyle = (
+    id: string,
+    field: string,
+    value: string | boolean
+  ) => {
     setBlocks((prev) =>
       prev.map((b) =>
         b.id === id
           ? {
               ...b,
               settings: { ...b.settings, [field]: value },
-              styles: { ...b.styles, [field]: value },
-              ...(field === "src" ? { src: value } : {}),
+              styles: { ...b.styles, [field]: String(value) },
+              ...(field === "src" ? { src: String(value) } : {}),
             }
           : b
       )

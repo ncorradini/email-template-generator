@@ -6,6 +6,19 @@
   background-color: transparent;
   color: #f3f3f4;
   font-family: Inter, sans-serif;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.inspector::-webkit-scrollbar {
+  width: 6px;
+}
+.inspector::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 3px;
+}
+.inspector::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .title {
@@ -94,10 +107,15 @@ select:focus {
 
 .borderControls {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.4rem;
   align-items: center;
 }
 
 .borderControls input[type="number"] {
-  width: 60px;
+  width: 50px;
+}
+
+.borderControls input[type="color"] {
+  height: 30px;
+  padding: 0;
 }

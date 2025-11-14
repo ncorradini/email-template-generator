@@ -39,7 +39,7 @@ const App = () => {
   const { exportTemplate, handleImportClick } = useTemplate(blocks, setBlocks);
 
   const handleSelectBlock = (block: Block | null) => setSelectedBlock(block);
-  const handleStyleChange = (id: string, field: string, value: string) =>
+  const handleStyleChange = (id: string, field: string, value: string | boolean) =>
     updateBlockStyle(id, field, value);
 
   useEffect(() => {

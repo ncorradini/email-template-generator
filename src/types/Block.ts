@@ -23,6 +23,7 @@ export interface Block {
     rows?: number;
     columns?: number;
     tableData?: string[][];
+    showInternalBorders?: boolean;
   };
   styles?: Record<string, string>;
 }

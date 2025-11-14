@@ -121,12 +121,26 @@ export const BlockItem = ({ block, onChange }: Props) => {
       const cellHeight =
         block.height && rows > 0 ? block.height / rows : "auto";
 
+      const showInside = block.settings?.showInternalBorders ?? true;
+
       return (
         <table
           style={{
             ...blockStyles.table,
             width: block.width || "auto",
             height: block.height || "auto",
+            borderTop: `${block.styles?.borderTopWidth || "1px"} solid ${
+              block.styles?.borderTopColor || "black"
+            }`,
+            borderRight: `${block.styles?.borderRightWidth || "1px"} solid ${
+              block.styles?.borderRightColor || "black"
+            }`,
+            borderBottom: `${block.styles?.borderBottomWidth || "1px"} solid ${
+              block.styles?.borderBottomColor || "black"
+            }`,
+            borderLeft: `${block.styles?.borderLeftWidth || "1px"} solid ${
+              block.styles?.borderLeftColor || "black"
+            }`,
           }}
         >
           <tbody>
@@ -137,13 +151,21 @@ export const BlockItem = ({ block, onChange }: Props) => {
                     key={c}
                     style={{
                       ...blockStyles.tableCell,
-                      borderWidth: block.styles?.borderWidth || "1px",
-                      borderStyle: "solid",
-                      borderColor: block.styles?.borderColor || "black",
+                      borderTop:
+                        showInside && r > 0
+                          ? `${block.styles?.borderTopWidth || "1px"} solid ${
+                              block.styles?.borderTopColor || "black"
+                            }`
+                          : "none",
+                      borderLeft:
+                        showInside && c > 0
+                          ? `${block.styles?.borderLeftWidth || "1px"} solid ${
+                              block.styles?.borderLeftColor || "black"
+                            }`
+                          : "none",
                       fontSize: block.styles?.fontSize || "14px",
-                      fontWeight: block.styles?.fontWeight || "400", // 🆕 Grosor del texto
-                      color: block.styles?.color || "#000000", // 🆕 Color del texto
-                      height: cellHeight,
+                      fontWeight: block.styles?.fontWeight || "400",
+                      color: block.styles?.color || "#000000",
                     }}
                   >
                     <ContentEditable
@@ -165,8 +187,6 @@ export const BlockItem = ({ block, onChange }: Props) => {
                         height: "100%",
                         padding: "4px",
                         boxSizing: "border-box",
-                        fontWeight: block.styles?.fontWeight || "400",
-                        color: block.styles?.color || "#000000",
                       }}
                     />
                   </td>

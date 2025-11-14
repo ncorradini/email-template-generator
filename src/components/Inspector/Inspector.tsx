@@ -3,7 +3,7 @@ import type { Block } from "../../types/Block";
 
 interface Props {
   selectedBlock: Block | null;
-  onChange: (id: string, field: string, value: string) => void;
+  onChange: (id: string, field: string, value: string | boolean) => void;
 }
 
 export const Inspector = ({ selectedBlock, onChange }: Props) => {
@@ -15,6 +15,10 @@ export const Inspector = ({ selectedBlock, onChange }: Props) => {
       </aside>
     );
   }
+
+  const updateStyle = (field: string, value: string) => {
+    onChange(selectedBlock.id, field, value);
+  };
 
   return (
     <aside className={styles.inspector}>
@@ -124,41 +128,55 @@ export const Inspector = ({ selectedBlock, onChange }: Props) => {
           </div>
 
           <div className={styles.section}>
-            <label className={styles.label}>Borde</label>
-            <div className={styles.borderControls}>
-              <input
-                type="number"
-                min={0}
-                max={10}
-                value={
-                  parseInt(selectedBlock.styles?.borderWidth || "1", 10) || 1
-                }
-                onChange={(e) =>
-                  onChange(
-                    selectedBlock.id,
-                    "borderWidth",
-                    e.target.value + "px"
-                  )
-                }
-              />
-              <input
-                type="color"
-                value={selectedBlock.styles?.borderColor || "#cccccc"}
-                onChange={(e) =>
-                  onChange(selectedBlock.id, "borderColor", e.target.value)
-                }
-              />
-            </div>
+            <label className={styles.label}>Mostrar bordes internos</label>
+            <input
+              type="checkbox"
+              checked={selectedBlock.settings?.showInternalBorders || false}
+              onChange={(e) =>
+                onChange(
+                  selectedBlock.id,
+                  "showInternalBorders",
+                  e.target.checked
+                )
+              }
+            />
           </div>
+
+          {["Top", "Right", "Bottom", "Left"].map((side) => (
+            <div className={styles.section} key={side}>
+              <label className={styles.label}>Borde {side}</label>
+              <div className={styles.borderControls}>
+                <input
+                  type="number"
+                  min={0}
+                  max={10}
+                  value={parseInt(
+                    selectedBlock.styles?.[`border${side}Width`] || "1",
+                    10
+                  )}
+                  onChange={(e) =>
+                    updateStyle(`border${side}Width`, e.target.value + "px")
+                  }
+                />
+                <input
+                  type="color"
+                  value={
+                    selectedBlock.styles?.[`border${side}Color`] || "#000000"
+                  }
+                  onChange={(e) =>
+                    updateStyle(`border${side}Color`, e.target.value)
+                  }
+                />
+              </div>
+            </div>
+          ))}
 
           <div className={styles.section}>
             <label className={styles.label}>Color del texto</label>
             <input
               type="color"
               value={selectedBlock.styles?.color || "#000000"}
-              onChange={(e) =>
-                onChange(selectedBlock.id, "color", e.target.value)
-              }
+              onChange={(e) => updateStyle("color", e.target.value)}
             />
           </div>
 
@@ -168,10 +186,8 @@ export const Inspector = ({ selectedBlock, onChange }: Props) => {
               type="number"
               min={8}
               max={48}
-              value={parseInt(selectedBlock.styles?.fontSize || "14", 10) || 14}
-              onChange={(e) =>
-                onChange(selectedBlock.id, "fontSize", e.target.value + "px")
-              }
+              value={parseInt(selectedBlock.styles?.fontSize || "14", 10)}
+              onChange={(e) => updateStyle("fontSize", e.target.value + "px")}
             />
           </div>
 
@@ -179,9 +195,7 @@ export const Inspector = ({ selectedBlock, onChange }: Props) => {
             <label className={styles.label}>Grosor del texto</label>
             <select
               value={selectedBlock.styles?.fontWeight || "400"}
-              onChange={(e) =>
-                onChange(selectedBlock.id, "fontWeight", e.target.value)
-              }
+              onChange={(e) => updateStyle("fontWeight", e.target.value)}
             >
               <option value="300">Fino</option>
               <option value="400">Normal</option>
@@ -196,9 +210,7 @@ export const Inspector = ({ selectedBlock, onChange }: Props) => {
             <label className={styles.label}>Alineación horizontal</label>
             <select
               value={selectedBlock.styles?.justifyContent || "flex-start"}
-              onChange={(e) =>
-                onChange(selectedBlock.id, "justifyContent", e.target.value)
-              }
+              onChange={(e) => updateStyle("justifyContent", e.target.value)}
             >
               <option value="flex-start">Inicio</option>
               <option value="center">Centro</option>
@@ -210,9 +222,7 @@ export const Inspector = ({ selectedBlock, onChange }: Props) => {
             <label className={styles.label}>Alineación vertical</label>
             <select
               value={selectedBlock.styles?.alignItems || "flex-start"}
-              onChange={(e) =>
-                onChange(selectedBlock.id, "alignItems", e.target.value)
-              }
+              onChange={(e) => updateStyle("alignItems", e.target.value)}
             >
               <option value="flex-start">Inicio</option>
               <option value="center">Centro</option>
