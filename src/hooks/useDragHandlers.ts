@@ -26,21 +26,33 @@ export const useDragHandlers = (
     const { active, over, delta } = event;
     if (!over) return;
 
-    if (active.data.current?.isTemplate) {
+    const canvas = document.querySelector(
+      "[data-droppable='canvas']"
+    ) as HTMLElement;
+    if (!canvas) return;
+
+    const canvasRect = canvas.getBoundingClientRect();
+
+    const initialRect = event.active.rect.current.initial;
+    if (!initialRect) return;
+
+    const finalX = initialRect.left + delta.x;
+    const finalY = initialRect.top + delta.y;
+
+    const x = finalX - canvasRect.left;
+    const y = finalY - canvasRect.top;
+
+    const isTemplate = active.data.current?.isTemplate;
+
+    if (isTemplate) {
       const type = active.id as Block["type"];
-      const canvasElement = document.querySelector("[data-droppable='canvas']");
-      const canvasRect = canvasElement?.getBoundingClientRect();
 
-      const dropX = (event.over?.rect?.left ?? 0) - (canvasRect?.left ?? 0);
-      const dropY = (event.over?.rect?.top ?? 0) - (canvasRect?.top ?? 0);
-
-      const newBlock: Block = {
+      addBlock({
         id: crypto.randomUUID(),
         type,
-        x: dropX + delta.x / 2,
-        y: dropY + delta.y / 2,
-      };
-      addBlock(newBlock);
+        x,
+        y,
+      });
     } else {
       updateBlockPosition(active.id as string, delta.x, delta.y);
     }
