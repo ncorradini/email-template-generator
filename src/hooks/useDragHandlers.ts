@@ -40,7 +40,7 @@ export const useDragHandlers = (
     const finalY = initialRect.top + delta.y;
 
     const x = finalX - canvasRect.left;
-    const y = finalY - canvasRect.top;
+    const y = finalY;
 
     const isTemplate = active.data.current?.isTemplate;
 
