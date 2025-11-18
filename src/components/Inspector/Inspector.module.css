@@ -21,6 +21,20 @@
   background: transparent;
 }
 
+.cellInspector {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  width: 220px;
+  padding: 12px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  color: #f3f3f4;
+}
+
 .title {
   font-size: 0.8rem;
   text-transform: uppercase;

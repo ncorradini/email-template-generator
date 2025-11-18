@@ -8,6 +8,16 @@ export type BlockType =
   | "container"
   | "table";
 
+export interface CellData {
+  text: string;
+  justifyContent?: "flex-start" | "center" | "flex-end";
+  alignItems?: "flex-start" | "center" | "flex-end";
+  fontSize?: string;
+  fontWeight?: string;
+  color?: string;
+  width?: number;
+}
+
 export interface Block {
   id: string;
   type: BlockType;
@@ -22,7 +32,7 @@ export interface Block {
   settings?: {
     rows?: number;
     columns?: number;
-    tableData?: string[][];
+    tableData?: CellData[][];
     showInternalBorders?: boolean;
   };
   styles?: Record<string, string>;

@@ -2,7 +2,7 @@ export const styles = {
   table: {
     borderCollapse: "collapse" as const,
     width: "100%",
-    tableLayout: "fixed" as const,
+    tableLayout: "auto" as const,
     border: "1px solid #000",
   },
   cell: {
